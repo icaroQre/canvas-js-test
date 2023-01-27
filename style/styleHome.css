@@ -1,0 +1,115 @@
+@font-face {
+    font-family: "mario";
+    src: url("../assets/fonts/SuperMario256.ttf") format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+}
+
+.menu {
+
+    background: rgb(103,182,255);
+    background: linear-gradient(180deg, rgba(103,182,255,1) 0%, rgba(255,255,255,1) 100%);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+}
+
+.logo {
+
+    width: 300px;
+    margin-bottom: 64px;
+    z-index: 999;
+
+}
+
+.play {
+
+    font-family: 'mario', sans-serif;
+    background-color: #f9f0d3;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 999;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #006600 ;
+    font-weight: 500;
+    border: solid 2px #006600;
+    margin: 16px;
+    font-size: 3rem;
+
+}
+
+.how-to-play {
+
+    font-family: 'mario', sans-serif;
+    background-color: #f9f0d3;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 999;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: 500;
+    border: solid 2px #E60000;
+    margin: 16px;
+    font-size: 1.5rem;
+    color: #E60000;
+    cursor: pointer;
+
+}
+
+.how {
+
+    font-family: 'mario', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    display: none;
+
+}
+
+.gram {
+
+    position: absolute;
+    width: 100%;
+    bottom: -120px;
+    z-index: 0;
+
+}
+
+.clouds {
+    position: absolute;
+    top: 50px;
+    width: 50vw;
+    animation: clouds-animation 25s infinite linear;
+}
+
+@keyframes clouds-animation {
+
+    from {
+        right: -800px;
+    }
+
+    to {
+        right: 100%;
+    }
+}
