@@ -6,13 +6,15 @@
 }
 
 body {
-
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     background-image: url("../assets/images/bg.jpg");
     background-size: cover;
+    margin: 0;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
 }
 
 .logo {
@@ -21,170 +23,87 @@ body {
 }
 
 .game-screen {
-
     width: 80vw;
-    height: 720px;
+    height: 80vh;
     overflow: hidden;
-    margin: 0 auto;
     position: relative;
     background: rgb(103,182,255);
     background: linear-gradient(180deg, rgba(103,182,255,1) 0%, rgba(255,255,255,1) 100%);
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.pipe {
-
-    width: 100px;
-    position: absolute;
-    bottom: 0;
-    animation: pipe-animation 2.5s infinite linear;
-}
-
-@keyframes pipe-animation {
-    
-    from {
-        right: -80px;
-    }
-
-    to {
-        right: 100%;
-    }
-
-}
-
-.mario {
-
-    width: 120px;
-    position: absolute;
-    bottom:20px;
-    left: 150px;
-
-}
-
-.mario-jump {
-    animation: mario-jumping 700ms ease-out;
-}
-
-@keyframes mario-jumping {
-
-    0% {
-        bottom: 20px;
-    }
-
-    50% {
-        bottom: 150px;
-    }
-
-    100% {
-        bottom: 20px;
-    }
-
-} 
-
-.gram {
-    position: absolute;
-    height: 700px;
-    bottom: -120px;
+canvas {
     width: 100%;
-}
-
-.clouds {
-    position: absolute;
-    top: 50px;
-    width: 800px;
-    animation: clouds-animation 25s infinite linear;
-}
-
-@keyframes clouds-animation {
-
-    from {
-        right: -800px;
-    }
-
-    to {
-        right: 100%;
-    }
-}
-
-.score-result {
-    width: 200px;
-    height: 100px;
-    position: absolute;
-    top: calc(160px - 50px);
-    left: calc(50% - 100px);
-    font-family: 'mario', sans-serif;
-    background-color: #f9f0d3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
+    height: 100%;
     border-radius: 16px;
-    text-decoration: none;
-    font-weight: 500;
-    border: solid 2px #0000cc ;
-    margin: 16px;
-    font-size: 1.5rem;
-    color: #0000cc ;
-    display: none;
-    cursor: pointer;
-}
-
-.retry-btn {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top: calc(360px - 50px);
-    left: calc(50% - 50px);
-    font-family: 'mario', sans-serif;
-    background-color: #f9f0d3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-    border-radius: 16px;
-    text-decoration: none;
-    font-weight: 500;
-    border: solid 2px #E60000;
-    margin: 16px;
-    font-size: 1.5rem;
-    color: #E60000;
-    display: none;
-    cursor: pointer;
-}
-
-.back-btn {
-    width: 100px;
-    height: 50px;
-    position: absolute;
-    top: calc(485px - 50px);
-    left: calc(50% - 50px);
-    font-family: 'mario', sans-serif;
-    background-color: #f9f0d3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-    border-radius: 16px;
-    text-decoration: none;
-    font-weight: 500;
-    border: solid 2px #006600;
-    margin: 16px;
-    font-size: 1.5rem;
-    color: #006600;
-    display: none;
-    cursor: pointer;
-    text-decoration: none;
-    color: #006600;
-
 }
 
 .score {
-
     font-family: 'mario', sans-serif;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 16px;
+    right: 16px;
     font-size: 2rem;
     font-weight: 600;
-    margin: 16px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 8px;
+}
 
+.score-result, .retry-btn, .back-btn {
+    font-family: 'mario', sans-serif;
+    background-color: #f9f0d3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 16px;
+    font-size: 1.5rem;
+    display: none;
+    cursor: pointer;
+}
+
+.score-result {
+    width: 300px;
+    height: 100px;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: solid 2px #0000cc;
+    color: #0000cc;
+}
+
+.retry-btn {
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: solid 2px #E60000;
+    color: #E60000;
+}
+
+.back-btn {
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: solid 2px #006600;
+    color: #006600;
+}
+
+.retry-btn:hover, .back-btn:hover {
+    opacity: 0.8;
 }

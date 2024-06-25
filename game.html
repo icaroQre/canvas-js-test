@@ -15,7 +15,7 @@
 </head>
 <body>
 
-    <img  class="logo" src="./assets/images/logo.png" alt="title-mario">
+    <img class="logo" src="./assets/images/logo.png" alt="title-mario">
     
     <div class="game-screen">
 
@@ -23,13 +23,9 @@
         <div class="score-result"></div>
         <button class="retry-btn" onclick="window.location.reload()">RETRY</button>
         <a class="back-btn" href="./index.html"> BACK </a>
-        <img class="mario" src="./assets/images/mario.webp" alt="super-mario">
-        <img class="pipe" src="./assets/images/pipe.png" alt="pipe-mario">
-        <img class="gram" src="./assets/images/gram.png" alt="gram-mario">
-        <img class="clouds" src="./assets/images/clouds.png" alt="clouds-mario">
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
 
     </div>
-
 
 <script src="./script/game.js"></script>
 </body>

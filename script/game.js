@@ -1,64 +1,103 @@
-const mario = document.querySelector('.mario')
-const pipe = document.querySelector('.pipe')
-const clouds = document.querySelector('.clouds')
-const retryBtn = document.querySelector('.retry-btn')
-const backBtn = document.querySelector('.back-btn')
-const score = document.querySelector('.score')
-const scoreResult = document.querySelector('.score-result')
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
 
-let point = 0
+const retryBtn = document.querySelector('.retry-btn');
+const backBtn = document.querySelector('.back-btn');
+const score = document.querySelector('.score');
+const scoreResult = document.querySelector('.score-result');
+
+const marioImg = new Image();
+marioImg.src = './assets/images/mario.webp';
+
+const pipeImg = new Image();
+pipeImg.src = './assets/images/pipe.png';
+
+const cloudsImg = new Image();
+cloudsImg.src = './assets/images/clouds.png';
+
+const marioGameOverImg = new Image();
+marioGameOverImg.src = './assets/images/mario-game-over.png';
+
+let point = 0;
+let marioY = canvas.height - 100;
+let pipeX = canvas.width;
+let cloudsX = canvas.width;
+let isJumping = false;
+let gameOver = false;
 
 const jump = () => {
+    if (!isJumping) {
+        isJumping = true;
+        let jumpHeight = 0;
+        const jumpInterval = setInterval(() => {
+            if (jumpHeight >= 100) {
+                clearInterval(jumpInterval);
+                const fallInterval = setInterval(() => {
+                    if (jumpHeight <= 0) {
+                        clearInterval(fallInterval);
+                        isJumping = false;
+                    } else {
+                        jumpHeight -= 5;
+                        marioY += 5;
+                    }
+                }, 20);
+            } else {
+                jumpHeight += 5;
+                marioY -= 5;
+            }
+        }, 20);
+    }
+};
 
-    mario.classList.add('mario-jump')
-    setTimeout(() => {
-        mario.classList.remove('mario-jump')
-    }, 700)
-}
+const draw = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw clouds
+    ctx.drawImage(cloudsImg, cloudsX, 0, 800, 200);
+    cloudsX -= 1;
+    if (cloudsX <= -800) {
+        cloudsX = canvas.width;
+    }
+
+    // Draw pipe
+    ctx.drawImage(pipeImg, pipeX, canvas.height - 100, 50, 100);
+    pipeX -= 5;
+    if (pipeX <= -50) {
+        pipeX = canvas.width;
+    }
+
+    // Draw Mario
+    ctx.drawImage(marioImg, 50, marioY, 50, 50);
+
+    // Check for collision
+    if (pipeX <= 100 && pipeX > 50 && marioY >= canvas.height - 100) {
+        ctx.drawImage(marioGameOverImg, 50, marioY, 50, 50);
+        retryBtn.style.display = 'flex';
+        backBtn.style.display = 'flex';
+        score.style.display = 'none';
+        scoreResult.style.display = 'flex';
+        scoreResult.innerHTML = `SCORE: ${point}`;
+        gameOver = true;
+        return;
+    }
+
+    if (!gameOver) {
+        requestAnimationFrame(draw);
+    }
+};
 
 const pointCounter = setInterval(() => {
-
-    if(mario.src = './assets/images/mario.webp'){
-        point++
+    if (!gameOver) {
+        point++;
+        score.innerHTML = `SCORE: ${point}`;
     }
+}, 1200);
 
-    score.innerHTML = `SCORE: ${point}`
+document.addEventListener('keydown', jump);
+window.addEventListener('click', jump);
 
-}, 2500)
+retryBtn.style.display = 'none';
+backBtn.style.display = 'none';
+scoreResult.style.display = 'none';
 
-const verifyDeffeat = setInterval(() => {
-
-    const pipePosition = pipe.offsetLeft;
-    const marioPosition = +window.getComputedStyle(mario).bottom.replace('px','')
-    const cloudsPosition = clouds.offsetLeft;
-
-    if(pipePosition <= 235 && pipePosition > 130 && marioPosition <= 80){
-        pipe.style.animation = 'none'
-        pipe.style.left = `${pipePosition}px`;
-
-        mario.style.animation = 'none'
-        mario.style.bottom = `${marioPosition}px`;
-
-        clouds.style.animation = 'none'
-        clouds.style.left = `${cloudsPosition}px`;
-
-        mario.src = './assets/images/mario-game-over.png'
-        mario.style.width = '60px'
-        mario.style.left = '200px'
-
-        retryBtn.style.display = 'flex'
-        backBtn.style.display = 'flex'
-        score.style.display = 'none'
-        scoreResult.style.display = 'flex'
-        scoreResult.innerHTML = `SCORE: ${point}`
-
-        if(mario.src = './assets/images/mario-game-over.png'){
-            clearInterval(verifyDeffeat)
-            clearInterval(pointCounter)
-        }
-    }
-
-}, 10)
-
-document.addEventListener('keydown', jump)
-window.addEventListener('click', jump)
+draw();
